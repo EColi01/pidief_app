@@ -3,6 +3,5 @@ services:
     name: pidief-api
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
-    rootDir: apps/api
+    buildCommand: "pip install -r apps/api/requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT --app-dir apps/api"
