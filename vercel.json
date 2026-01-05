@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://pidief-app.onrender.com/api/:path*"
+      "destination": "https://pidief-api.onrender.com/api/:path*"
     }
   ]
 }
