@@ -1,0 +1,17 @@
+{
+  "name": "pidief-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:web dev:api",
+    "dev:web": "npm run dev --workspace=web",
+    "dev:api": "cd apps/api && .\\.venv\\Scripts\\uvicorn.exe app.main:app --reload",
+    "build:web": "npm run build --workspace=web"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
