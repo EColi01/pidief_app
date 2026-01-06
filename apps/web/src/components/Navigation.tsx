@@ -4,7 +4,7 @@ export default function Navigation() {
             <div className="container mx-auto px-6">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
-                        <h1 className="text-2xl font-bold text-secondary">Pidief</h1>
+                        <h1 className="text-2xl font-bold text-tertiary">Pidief</h1>
                     </div>
                     {/* Future navigation links can go here */}
                 </div>

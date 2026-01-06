@@ -26,17 +26,17 @@ export default function Dropzone() {
       {...getRootProps()}
       className={`flex flex-col items-center justify-center p-8 border-2 border-dashed rounded-xl cursor-pointer transition-colors duration-300 ease-in-out
         ${isDragActive 
-            ? 'border-solid bg-gray-800 border-secondary' 
-            : 'bg-primary border-tertiary hover:bg-gray-800 hover:border-gray-500'}`
+            ? 'border-solid bg-secondary border-accent' 
+            : 'bg-primary border-tertiary hover:bg-secondary hover:border-accent'}`
         }
     >
       <input {...getInputProps()} />
       <UploadIcon />
       {isDragActive ? (
-        <p className="mt-4 text-lg font-semibold text-secondary">Suelta para cargar</p>
+        <p className="mt-4 text-lg font-semibold text-tertiary">Suelta para cargar</p>
       ) : (
         <div className="text-center mt-4">
-            <p className="text-lg font-semibold text-secondary">Arrastra tus archivos o haz clic aquí</p>
+            <p className="text-lg font-semibold text-tertiary">Arrastra tus archivos o haz clic aquí</p>
             <p className="text-sm text-tertiary mt-1">Selecciona los documentos a procesar</p>
         </div>
       )}
