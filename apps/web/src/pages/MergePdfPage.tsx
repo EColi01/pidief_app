@@ -12,6 +12,7 @@ import {
 import { SortableItem } from "../components/SortableItem";
 import { UploadIcon } from "../components/UploadIcon";
 import { FilePlus, RotateCcw, Trash2 } from "lucide-react";
+import { PDFDocument, degrees } from "pdf-lib";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.js";
 
@@ -90,6 +91,48 @@ export default function MergePdfPage() {
     );
   };
 
+  const [loading, setLoading] = useState(false);
+
+  const handleMerge = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    for (const file of files) {
+      if (file.rotation !== 0) {
+        const pdfDoc = await PDFDocument.load(await file.file.arrayBuffer());
+        const page = pdfDoc.getPage(0);
+        page.setRotation(degrees(file.rotation));
+        const pdfBytes = await pdfDoc.save();
+        formData.append("files", new Blob([pdfBytes]), file.id);
+      } else {
+        formData.append("files", file.file, file.id);
+      }
+    }
+
+    try {
+      const response = await fetch("https://pidief-api.onrender.com/api/unir-pdf", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "merged.pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } else {
+        console.error("Failed to merge PDFs");
+      }
+    } catch (error) {
+      console.error("Error merging PDFs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       {...getRootProps()}
@@ -156,8 +199,12 @@ export default function MergePdfPage() {
               <FilePlus />
               Añadir más archivos
             </button>
-            <button className="bg-red-500 text-white p-4 rounded-lg">
-              Unir PDF
+            <button
+              className="bg-red-500 text-white p-4 rounded-lg"
+              onClick={handleMerge}
+              disabled={loading}
+            >
+              {loading ? "Uniendo..." : "Unir PDF"}
             </button>
           </div>
         </div>
