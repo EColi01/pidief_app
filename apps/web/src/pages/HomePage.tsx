@@ -34,16 +34,19 @@ export default function HomePage() {
             icon={<MergeIcon />}
             title="Unir PDF"
             description="Combina varios archivos PDF en un único documento."
+            to="/unir-pdf"
           />
           <ToolCard 
             icon={<SplitIcon />}
             title="Dividir PDF"
             description="Extrae una o más páginas de un archivo PDF."
+            to="/dividir-pdf"
           />
           <ToolCard 
             icon={<CompressIcon />}
             title="Comprimir PDF"
             description="Reduce el tamaño de tus archivos PDF."
+            to="/comprimir-pdf"
           />
           {/* Add more ToolCard components here as you add features */}
         </div>
